@@ -5,4 +5,6 @@
 - M is generally 10-20% of N
 - N = chunk size, M = overlapping tokens size
 #### Embedder
-* Retriever
+- 
+#### Retriever
+- 
