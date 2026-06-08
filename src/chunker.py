@@ -52,6 +52,9 @@ class chunker:
         print(f"Ultimate chunk length: {len(chunks[-1])}")   
 
 if __name__=="__main__":
-    obj = chunker(500, 75, "C:/Users/gvvsn/OneDrive/Desktop/Learning/Document Corpus/main_arcs.txt")
+    chunk_size = int(input("Enter chunk size please: "))
+    overlap_size = 0.15 * chunk_size
+
+    obj = chunker(chunk_size, overlap_size, "C:/Users/gvvsn/OneDrive/Desktop/Learning/Document Corpus/main_arcs.txt")
     result_list = obj.corpus_chunker()
     print(result_list)
