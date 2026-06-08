@@ -2,7 +2,7 @@ import os
 
 from sentence_transformers import SentenceTransformer
 
-class chunker:
+class Chunker:
     def __init__(self, chunk_size, file_path):
         self.CHUNK_SIZE = chunk_size
         self.CHUNK_OVERLAP = int(0.15 * self.CHUNK_SIZE)
@@ -55,7 +55,7 @@ class chunker:
 if __name__=="__main__":
     chunk_size = int(input("Enter chunk size please: "))
 
-    obj = chunker(chunk_size, "C:/Users/gvvsn/OneDrive/Desktop/Learning/Document Corpus/main_arcs.txt")
+    obj = Chunker(chunk_size, "C:/Users/gvvsn/OneDrive/Desktop/Learning/Document Corpus/main_arcs.txt")
     result_list = obj.corpus_chunker()
     print(result_list)
     obj.sanity_check()
