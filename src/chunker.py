@@ -3,11 +3,11 @@ import os
 from sentence_transformers import SentenceTransformer
 
 class chunker:
-    def __init__(self, FILE_PATH):
-        self.CHUNK_SIZE = int(input("Enter chunk size please: "))
+    def __init__(self, chunk_size, file_path):
+        self.CHUNK_SIZE = chunk_size
         self.CHUNK_OVERLAP = int(0.15 * self.CHUNK_SIZE)
 
-        self.FILE_PATH = FILE_PATH
+        self.FILE_PATH = file_path
 
         with open(self.FILE_PATH, 'r', encoding="utf-8") as f:
             data = f.read()
