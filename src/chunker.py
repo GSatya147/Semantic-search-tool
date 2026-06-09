@@ -3,9 +3,10 @@ import os
 from sentence_transformers import SentenceTransformer
 
 class Chunker:
-    def __init__(self, chunk_size, file_path):
+    def __init__(self, chunk_size, file_path, model):
         self.CHUNK_SIZE = chunk_size
         self.CHUNK_OVERLAP = int(0.15 * self.CHUNK_SIZE)
+        self.model = model
 
         self.FILE_PATH = file_path
 
@@ -13,7 +14,6 @@ class Chunker:
             data = f.read()
 
         try:
-            self.model = SentenceTransformer("voyageai/voyage-4-nano", trust_remote_code=True, truncate_dim=1024)
             self.tokenizer = self.model.tokenizer
 
             self.tokenized_data = self.tokenizer.encode(data)
