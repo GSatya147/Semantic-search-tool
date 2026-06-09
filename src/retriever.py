@@ -1,6 +1,11 @@
+import os
+
 import chromadb
+from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
-from groq import model
+from litellm import completion
+
+load_dotenv()
 
 class Retriever:
     def __init__(self, user_query):
@@ -28,24 +33,34 @@ class Retriever:
     def generate_response(self):
         self.corpus_retriever()
 
-        context = "/n/n".join()
+        context = "\n\n".join([
+            f"[{self.result["ids"][0][i]}]: {self.result["documents"][0][i]}"
+            for i in range(len(self.result["documents"][0]))
+        ])
 
         sys_prompt = f"""
             you are an one piece knowledge assistant, answer only on the basis of provided context:
             <context>{context}</context>
-            if the given context is inadequate, just answer "It is out of the provided knowledge"
+            if the given context is inadequate, just answer "It is out of the provided knowledge" only.
         """
 
+        try:
+            self.response = completion(
+                model=os.getenv("MODEL"),
+                messages=[
+                    {"role" : "system", "content" : sys_prompt},
+                    {"role" : "user", "content": self.query},
+                ]
+            )
 
-        
-
+            return self.response
+        except Exception as e:
+            print(e)
 
 if __name__=="__main__":
     query = input(">> ")
 
     obj = Retriever(query)
-    obj.corpus_retriever()
+    result = obj.generate_response()
 
-    print(f"ids: {obj.result["ids"]}")
-    print(f"documents: {obj.result['documents']}")
-    print(f"distances: {obj.result["distances"]}")
+    print(result.choices[0].message.content)
