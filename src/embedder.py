@@ -58,7 +58,7 @@ class VectorEmbedder:
 
 if __name__=="__main__":
     obj = VectorEmbedder()
-    obj.vector_store(500, "C:/Users/gvvsn/OneDrive/Desktop/Learning/Document Corpus/main_arcs.txt")
+    obj.vector_store(500, "./main_arcs.txt")
     if obj.EMBED_AND_STORE:
         print(obj.embeddings)
         print(len(obj.embeddings))
