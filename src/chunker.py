@@ -51,11 +51,3 @@ class Chunker:
         print(f"First chunk length: {len(self.chunks[0])}")
         print(f"Pen-ultimate chunk length: {len(self.chunks[-2])}")
         print(f"Ultimate chunk length: {len(self.chunks[-1])}")   
-
-if __name__=="__main__":
-    chunk_size = int(input("Enter chunk size please: "))
-
-    obj = Chunker(chunk_size, "C:/Users/gvvsn/OneDrive/Desktop/Learning/Document Corpus/main_arcs.txt")
-    result_list = obj.corpus_chunker()
-    print(result_list)
-    obj.sanity_check()
