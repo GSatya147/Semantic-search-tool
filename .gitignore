@@ -1,1 +1,3 @@
 src/demo.py
+__pycache__
+chromadb/
