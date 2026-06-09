@@ -26,10 +26,10 @@ class VectorEmbedder:
                     current_batch = []
                 
                 running_tokens+=chunk["metadata"]["token_count"]
-                current_batch.append(chunk)
+                current_batch.append(chunk["content"])
             
             if current_batch:
-                result = model.encode(current_batch)
+                self.embeddings+=model.encode(current_batch)
 
         except Exception as e:
             print(e)
