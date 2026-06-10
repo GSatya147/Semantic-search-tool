@@ -33,3 +33,4 @@
 
 #### `retriever.py`
 
+**Class:** `Retreiver()`
