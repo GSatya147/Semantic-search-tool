@@ -4,3 +4,5 @@ import chromadb
 class Reranker:
     pass
 
+if __name__=="__main__":
+    pass
