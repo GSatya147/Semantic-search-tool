@@ -30,3 +30,6 @@
 - `chromadb.PersistentClient(path="./chromadb")` — survives process restarts
 - `get_or_create_collection()` — idempotent, safe to call repeatedly
 - `collection.add()` takes **parallel lists** — `ids`, `documents`, `metadatas`, `embeddings` must all be same length
+
+#### `retriever.py`
+
