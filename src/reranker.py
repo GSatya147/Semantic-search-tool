@@ -1,5 +1,4 @@
 from sentence_transformers.cross_encoder import CrossEncoder
-import chromadb
 
 from retriever import Retriever
 
@@ -17,8 +16,8 @@ class Reranker:
         self.retriever_result = retreiver_obj.corpus_retriever()
 
         self.sentences = []
-        for result in self.retriever_result:
-            batches = [self.user_query, result]
+        for i in self.retriever_result["documents"][0]:
+            batches = [self.user_query, i]
             self.sentences.append(batches)
 
         self.scores = self.model.predict(self.sentences)
