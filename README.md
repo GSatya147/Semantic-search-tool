@@ -31,6 +31,8 @@
 - `get_or_create_collection()` — idempotent, safe to call repeatedly
 - `collection.add()` takes **parallel lists** — `ids`, `documents`, `metadatas`, `embeddings` must all be same length
 
+---
+
 #### `retriever.py`
 
 **Class:** `Retreiver()`
@@ -45,6 +47,8 @@
 - LLM model loaded from env via `MODEL` — routed through `litellm.completion()`, swap model without touching code
 - Caller owns reranker instantiation — retriever does not know about reranking
 
+---
+
 **Class:** `Reranker()`
 
 - Loads `cross-encoder/ms-marco-MiniLM-L6-v2` **once in `__init__`** — never reloads per call
@@ -55,3 +59,5 @@
 - Results sorted descending by score, sliced to `top_n` — returns list of dicts with `document_id`, `score`, `content`
 - `content` included in return object — caller passes directly to LLM, no second ChromaDB lookup needed
 - Retriever instantiation stays in caller — reranker accepts results, does not own retrieval
+
+---
