@@ -25,7 +25,7 @@ class Retriever:
 
         self.result = collections.query(
             query_embeddings=self.query_embeddings,
-            n_results=3
+            n_results=5
         )
 
         return self.result
