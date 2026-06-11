@@ -33,9 +33,12 @@ class Reranker:
 if __name__=="__main__":
     user_query = input(">> ")
     obj = Reranker(user_query)
-    retreiver_obj = Retriever(user_query)
-    retriever_results = retreiver_obj.corpus_retriever()
+    retriever_obj = Retriever(user_query)
+    retriever_results = retriever_obj.corpus_retriever(where={"document_name": {"$eq": "main_arcs.txt"}})
 
     reranker_result = obj.rerank_results(retriever_result=retriever_results)
 
-    print(f"reranker: {reranker_result}")
+    # print(f"reranker: {reranker_result}")
+
+    response = retriever_obj.generate_response(reranker_results=reranker_result)
+    print(response.choices[0].message.content)

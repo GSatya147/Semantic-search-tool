@@ -34,12 +34,12 @@ class Retriever:
 
         return self.result
     
-    def generate_response(self):
+    def generate_response(self, reranker_results):
         self.corpus_retriever()
 
         context = "\n\n".join([
-            f"[{self.result["ids"][0][i]}]: {self.result["documents"][0][i]}"
-            for i in range(len(self.result["documents"][0]))
+            f"[{reranker_results[i]["document_ids"]}]: {reranker_results[i]["content"]}"
+            for i in range(len(reranker_results))
         ])
 
         sys_prompt = f"""
