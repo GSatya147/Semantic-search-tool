@@ -11,31 +11,31 @@ class Reranker:
         except Exception as e:
             print(e)
 
-    def rerank_results(self, documents, top_n=3):
+    def rerank_results(self, retriever_result, top_n=3):
+        documents = retriever_result["documents"][0]
+        ids = ids=retriever_result["ids"][0]
+
         sentences = []
         for i in documents:
-            batches = [self.user_query, documents]
+            batches = [self.user_query, i]
             sentences.append(batches)
 
-        self.scores = self.model.predict(sentences)
-        
+        result = self.model.predict(sentences)
+        self.scores = result.tolist()
+
         ranking_list = []
-        for i, j in zip(self.scores, documents):
-            ranking_list.append({"document" : j, "score" : i})
+        for id, score, doc in zip(ids, self.scores, documents):
+            ranking_list.extend([{"document_ids" : id, "score" : score, "content" : doc}])
         
         self.reranker_results = sorted(ranking_list, key=lambda x: x["score"], reverse=True)
-
         return self.reranker_results[:top_n]
 
 if __name__=="__main__":
     user_query = input(">> ")
     obj = Reranker(user_query)
     retreiver_obj = Retriever(user_query)
-    retriever_result = retreiver_obj.corpus_retriever()
+    retriever_results = retreiver_obj.corpus_retriever()
 
-    documents = retriever_result["documents"][0]
-    reranker_result,sentences = obj.rerank_results(documents=documents)
+    reranker_result = obj.rerank_results(retriever_result=retriever_results)
 
-    print(f"sentences: {sentences}")
     print(f"reranker: {reranker_result}")
-    print(f"retriever: {retriever_result}")
