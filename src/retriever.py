@@ -18,15 +18,19 @@ class Retriever:
         except Exception as e:
             print(e)
 
-    def corpus_retriever(self):
+    def corpus_retriever(self, n_results=5, where=None):
         client = chromadb.PersistentClient(path="./chromadb")
 
         collections = client.get_collection(name="one_piece_main_arcs")
 
-        self.result = collections.query(
-            query_embeddings=self.query_embeddings,
-            n_results=5
-        )
+        query_qwargs = {
+            "query_embeddings": self.query_embeddings,
+            "n_results" : n_results,
+        }
+        if where is not None:
+            query_qwargs["where"] = where
+
+        self.result = collections.query(**query_qwargs)
 
         return self.result
     
